@@ -1,29 +1,37 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int zc = 0;
-        vector<int> res;
-        int prod = 1;
-        for (auto it : nums) {
-            if (it == 0) {
-                zc++;
-            } else {
-                prod = it * prod;
+        int n=nums.size();
+        int in=-1;
+        int prod=1;
+        vector<int>fin;
+        for(int i=0;i<n;i++){
+            if(nums[i]==0){
+                in=i;
             }
         }
-        for (int i = 0; i < nums.size(); i++) {
-            if (zc == 1) {
-                if (nums[i] == 0) {
-                    res.push_back(prod);
-                } else {
-                    res.push_back(0);
+        cout<<"in is:"<<in<<endl;
+        if(in!=-1){
+            int temp=1;
+            vector<int>ans(n,0);
+            for(int i=0;i<n;i++){
+                if(i!=in){
+                    temp*=nums[i];
                 }
-            } else if (zc > 1) {
-                res.push_back(0);
-            } else {
-                res.push_back(prod / nums[i]);
             }
+            ans[in]=temp;
+            return ans;
         }
-        return res;
+       else{
+        for(int i=0;i<n;i++){
+            prod*=nums[i];
+        }
+        for(int i=0;i<n;i++){
+            fin.push_back(prod/nums[i]);
+        } 
+        return fin;
+       }
+      
     }
+    
 };
