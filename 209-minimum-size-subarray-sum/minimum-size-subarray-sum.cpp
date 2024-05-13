@@ -14,7 +14,7 @@ public:
                 l++;
                 }
             }
-             r+=1;
+             r++;
         }
        return minSize == nums.size() + 1 ? 0 : minSize;
     }
