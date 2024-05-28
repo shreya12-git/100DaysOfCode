@@ -17,8 +17,7 @@ public:
         // }
         // return 0;
         sort(nums.begin(),nums.end());
-        int n=nums.size();
-        return nums[n/2];
+        return nums[nums.size()/2];
 
     }
 };
