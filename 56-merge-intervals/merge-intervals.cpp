@@ -1,27 +1,25 @@
 class Solution {
 public:
-    static bool comp(vector<int>&a, vector<int>& b){
-        return a[0] < b[0];
-    }
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        sort(intervals.begin(), intervals.end(), comp);
-        vector<vector<int>> ret;
-        int size = intervals.size();
-        if(size == 0){
-            return ret;
+        if(intervals.size()<=1){
+            return intervals;
         }
-        int curs = intervals[0][0], curf = intervals[0][1];
-        for(int i=1;i<size;i++){
-            if(intervals[i][0] <= curf){
-                curf = max(intervals[i][1], curf);
-                continue;
+        sort(intervals.begin(),intervals.end(),[](const vector<int>&a,const vector<int>&b){
+            return a[0]<b[0];
+        });
+        vector<vector<int>>ans;
+        vector<int>nI=intervals[0];
+        ans.push_back(nI);
+        for(const vector<int>&i:intervals){
+            if(i[0]<=nI[1]){
+                nI[1]=max(nI[1],i[1]);
+                ans.back()[1]=nI[1];
             }
-            ret.push_back(vector<int>{curs,curf});
-            curs = intervals[i][0];
-            curf = intervals[i][1];
+            else{
+                nI=i;
+                ans.push_back(nI);
+            }
         }
-        ret.push_back(vector<int>{curs,curf});
-        return ret;
-        
+        return ans;
     }
 };
