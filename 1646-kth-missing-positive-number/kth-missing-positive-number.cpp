@@ -3,9 +3,8 @@ public:
     int findKthPositive(vector<int>& arr, int k) {
         int n=arr.size();
         int l=0,r=n-1;
-        int mid=-1;
         while(l<=r){
-            mid=l+(r-l)/2;
+           int mid=l+(r-l)/2;
             int missing_ele=arr[mid]-(mid+1);
             if(missing_ele<k){
                 l=mid+1;
