@@ -1,17 +1,11 @@
 class Solution {
 public:
     int findGCD(vector<int>&numsDivide){
-        int gcd=numsDivide[0];
-        int n=numsDivide.size();
-        for(int i=0;i<n;i++){
-            int num=numsDivide[i];
-            while(num>0){
-                int temp=gcd%num;
-                gcd=num;
-                num=temp;
-            }
+        int gcdnumb=numsDivide[0];
+        for(int i=1;i<numsDivide.size();i++){
+            gcdnumb=gcd(gcdnumb,numsDivide[i]);
         }
-        return gcd;
+        return gcdnumb;
     }
     int minOperations(vector<int>& nums, vector<int>& numsDivide) {
         int gcd=findGCD(numsDivide);
