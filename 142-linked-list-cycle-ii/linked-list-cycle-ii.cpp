@@ -9,30 +9,21 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if (head == NULL || head->next == NULL) {
-            return NULL;
-        }
-
-        ListNode* slow = head;
-        ListNode* fast = head;
-
-        // Step 1: Detect if there is a cycle using Floyd's Tortoise and Hare
-        while (fast != NULL && fast->next != NULL) {
-            slow = slow->next;
-            fast = fast->next->next;
-
-            if (slow == fast) {
-                // Step 2: Find the start of the cycle
-                ListNode* ptr1 = head;
-                while (ptr1 != slow) {
-                    ptr1 = ptr1->next;
-                    slow = slow->next;
+        if(!head) return NULL;
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast!=NULL and fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(fast==slow){
+                slow=head;
+                while(slow!=fast){
+                    slow=slow->next;
+                    fast=fast->next;
                 }
-                return ptr1;
+                return slow;
             }
         }
-
-        // No cycle
         return NULL;
     }
 };
