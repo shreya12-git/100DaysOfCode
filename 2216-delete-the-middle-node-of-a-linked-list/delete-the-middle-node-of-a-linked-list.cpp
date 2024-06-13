@@ -11,31 +11,17 @@
 class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) {
- if (head == nullptr || head->next == nullptr) {
-            return nullptr;
+        if(head==NULL || head->next==NULL){
+            return NULL;
         }
-
-        // Initialize slow and fast pointers and a pointer to the previous node of slow
-        ListNode* slow = head;
-        ListNode* fast = head;
-        ListNode* prev = nullptr;
-
-        // Move fast pointer twice as fast as slow pointer
-        while (fast != nullptr && fast->next != nullptr) {
-            prev = slow;
-            slow = slow->next;
-            fast = fast->next->next;
+        ListNode *slow=head;
+        ListNode* fast=head;
+        fast=fast->next->next;
+        while(fast!=NULL && fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
         }
-
-        // Unlink the middle node
-        if (prev != nullptr) {
-            prev->next = slow->next;
-        }
-
-        // Free the memory of the middle node
-        delete slow;
-
-        // Return the head of the modified list
+        slow->next=slow->next->next;
         return head;
     }
 };
