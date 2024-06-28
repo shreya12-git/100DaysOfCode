@@ -1,32 +1,29 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* temp1 = l1;
-        ListNode* temp2 = l2;
-        ListNode* head = nullptr;
-        ListNode* tail = nullptr; // To keep track of the last node in the result list
-        int carry = 0;
+        return addTwoNumbersHelper(l1, l2, 0);
+    }
 
-        while (temp1 != nullptr || temp2 != nullptr || carry != 0) {
-            int sum = carry;
-            if (temp1 != nullptr) {
-                sum += temp1->val;
-                temp1 = temp1->next;
-            }
-            if (temp2 != nullptr) {
-                sum += temp2->val;
-                temp2 = temp2->next;
-            }
-            carry = sum / 10;
-            ListNode* newNode = new ListNode(sum % 10); // Create a new node with the sum value
-
-            if (head == nullptr) {
-                head = newNode; // Set head if it's the first node
-            } else {
-                tail->next = newNode; // Link the new node to the end of the list
-            }
-            tail = newNode; // Move the tail to the new last node
+private:
+    ListNode* addTwoNumbersHelper(ListNode* l1, ListNode* l2, int carry) {
+        // Base case: if both lists are empty and there's no carry, return null
+        if (l1 == nullptr && l2 == nullptr && carry == 0) {
+            return nullptr;
         }
-        return head;
+
+        int sum = carry;
+        if (l1 != nullptr) {
+            sum += l1->val;
+            l1 = l1->next;
+        }
+        if (l2 != nullptr) {
+            sum += l2->val;
+            l2 = l2->next;
+        }
+
+        ListNode* newNode = new ListNode(sum % 10); // Create a new node with the sum value
+        newNode->next = addTwoNumbersHelper(l1, l2, sum / 10); // Recurse for the next nodes with the carry
+
+        return newNode;
     }
 };
