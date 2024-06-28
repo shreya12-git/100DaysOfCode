@@ -25,10 +25,8 @@ public:
             solve(c,ans,output,target-c[i]);
             output.pop_back();
         }
-        vector<vector<int>> a;
-        for(auto i:ans){
-            a.push_back(i);
-        }
+        vector<vector<int>>a(ans.begin(),ans.end());
+
         return a;
     }
 };
