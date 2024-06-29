@@ -1,32 +1,27 @@
 class Solution {
 public:
-    void solve(vector<int>& c,set<vector<int>> &ans,vector<int>output, int t){
-        if(t==0){
-            sort(output.begin(),output.end());
-            ans.insert(output);
+    void solve(vector<int>& candidates, set<vector<int>>& ans, vector<int>& out, int target, int index, int total) {
+        if (target == total) {
+            ans.insert(out);
             return;
         }
-        if(t<0){
+        if (total > target) {
             return;
         }
-        for(int i =0;i<c.size();i++){
-            output.push_back(c[i]);
-            solve(c,ans,output,t-c[i]);
-            output.pop_back();
+        for (int i = index; i < candidates.size(); ++i) {
+            out.push_back(candidates[i]);
+            solve(candidates, ans, out, target, i, total + candidates[i]); // Use i to allow same element
+            out.pop_back();
         }
-        return ;
+        return;
     }
-    vector<vector<int>> combinationSum(vector<int>& c, int target) {
-        int index=0;
-        vector<int>output;
-        set<vector<int>> ans;
-        for(int i =0;i<c.size();i++){
-            output.push_back(c[i]);
-            solve(c,ans,output,target-c[i]);
-            output.pop_back();
-        }
-        vector<vector<int>>a(ans.begin(),ans.end());
 
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        set<vector<int>> ans;
+        vector<int> out;
+        solve(candidates, ans, out, target, 0, 0);
+        vector<vector<int>> a(ans.begin(), ans.end());
         return a;
     }
 };
