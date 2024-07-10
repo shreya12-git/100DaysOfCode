@@ -13,54 +13,31 @@ class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>>ans;
-        queue<TreeNode*>q;
         if(root==NULL){
             return ans;
         }
+        queue<TreeNode*>q;
+        
         q.push(root);
         while(!q.empty()){
-            int size=q.size();
-            vector<int>temp;
-            for(int i=0;i<size;i++){
-                TreeNode* tempnode=q.front();
+            int levelSize = q.size();
+            vector<int> level;
+            
+            for (int i = 0; i < levelSize; ++i) {
+                TreeNode* temp = q.front();
                 q.pop();
-                temp.push_back(tempnode->val);
-                if(tempnode->left){
-                    q.push(tempnode->left);
+                level.push_back(temp->val);
+                
+                if (temp->left) {
+                    q.push(temp->left);
                 }
-                if(tempnode->right){
-                    q.push(tempnode->right);
+                if (temp->right) {
+                    q.push(temp->right);
                 }
             }
-            ans.push_back(temp);
+            
+            ans.push_back(level);
         }
         return ans;
-
-
-
-        // if(root==NULL){
-        //     return ans;
-        // }
-        // queue<TreeNode*>q;
-        // q.push(root);
-        // bool leftToRight=true;
-        // while(!q.empty()){
-        //     int size=q.size();
-        //     vector<int>store(size);
-        //     for(int i=0;i<size;i++){
-        //         TreeNode* node=q.front();
-        //                q.pop();
-        //                int index=i;
-        //                store[index]=node->val;
-        //                if(node->left){
-        //                 q.push(node->left);
-        //                }    
-        //                if(node->right){
-        //                 q.push(node->right);
-        //                }
-        //     }
-        //     ans.push_back(store);
-        // }
-        // return ans;
     }
 };
